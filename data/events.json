@@ -1,4 +1,11 @@
 {
-  "updatedAt": "2026-10-31T20:53:44.865Z",
-  "events": []
+  "updatedAt": "2026-10-31T21:17:06.020Z",
+  "events": [
+    {
+      "company": "Target",
+      "date": "2026-08-19",
+      "event": "Target Corporation to Webcast 2nd Quarter Earnings Conference Call on Wednesday,",
+      "url": "https://investors.target.com/press/release/2026/08/target-corporation-to-webcast-2nd-quarter-earnings-conference-call-on-wednesday,-august-19,-2026"
+    }
+  ]
 }
