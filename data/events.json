@@ -1,11 +1,41 @@
 {
-  "updatedAt": "2026-10-31T21:17:06.020Z",
+  "updatedAt": "2026-10-31T21:58:50.073Z",
   "events": [
     {
       "company": "Target",
       "date": "2026-08-19",
-      "event": "Target Corporation to Webcast 2nd Quarter Earnings Conference Call on Wednesday,",
+      "event": "Target Corporation Reports Second Quarter Earnings",
+      "url": "https://investors.target.com/press/release/2026/08/target-corporation-reports-second-quarter-earnings"
+    },
+    {
+      "company": "Target",
+      "date": "2026-08-19",
+      "event": "Target Corporation to Webcast 2nd Quarter Earnings Conference Call on Wednesday, August 19, 2026",
       "url": "https://investors.target.com/press/release/2026/08/target-corporation-to-webcast-2nd-quarter-earnings-conference-call-on-wednesday,-august-19,-2026"
+    },
+    {
+      "company": "Target",
+      "date": "2026-08-19",
+      "event": "Target Announces Voting Results from 2026 Annual Meeting of Shareholders",
+      "url": "https://investors.target.com/press/release/2026/06/target-announces-voting-results-from-2026-annual-meeting-of-shareholders"
+    },
+    {
+      "company": "Microsoft",
+      "date": "2026-09-30",
+      "event": "http://www.microsoft.com/en-us/investor",
+      "url": "http://www.microsoft.com/en-us/investor"
+    },
+    {
+      "company": "NVIDIA",
+      "date": "2026-10-28",
+      "event": "NVIDIA Sets Conference Call for Third-Quarter Financial Results",
+      "url": "https://investor.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873"
+    },
+    {
+      "company": "NVIDIA",
+      "date": "2026-10-28",
+      "event": "Read Press Release",
+      "url": "https://investor.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873"
     }
   ]
 }
