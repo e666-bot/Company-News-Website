@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f8">
+  <title>Investor Relations Directory</title>
+  <style>
+    :root { color-scheme:light; --ink:#17212b; --muted:#657383; --line:#dce3e9; --blue:#1769aa; --paper:#fff; --bg:#f4f6f8 }
+    * { box-sizing:border-box }
+    body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif }
+    main { width:min(1440px,calc(100% - 40px)); margin:32px auto }
+    header { margin-bottom:24px }
+    .eyebrow { color:var(--blue); font-size:.76rem; font-weight:750; letter-spacing:.12em; text-transform:uppercase }
+    h1 { margin:7px 0 8px; font-size:clamp(2rem,4vw,2.8rem); letter-spacing:-.045em; line-height:1.1 }
+    header p { margin:0; color:var(--muted) }
+    .search-panel,.group,.preview { background:var(--paper); border:1px solid var(--line); border-radius:14px; box-shadow:0 6px 22px #17212b08 }
+    .search-panel { padding:18px; margin-bottom:16px }
+    .search-label { display:block; font-weight:700; margin-bottom:8px }
+    .search-box { position:relative }
+    #company-search { width:100%; height:54px; border:1px solid #cbd5dd; border-radius:9px; padding:0 48px 0 16px; color:var(--ink); font:inherit; outline:none }
+    #company-search:focus { border-color:var(--blue); box-shadow:0 0 0 3px #1769aa22 }
+    .search-icon { position:absolute; right:16px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:1.2rem; pointer-events:none }
+    .suggestions { position:absolute; z-index:5; top:calc(100% + 6px); left:0; right:0; display:none; max-height:280px; overflow:auto; padding:6px; background:white; border:1px solid var(--line); border-radius:10px; box-shadow:0 12px 28px #17212b20 }
+    .suggestions.open { display:block }
+    .suggestion { width:100%; padding:11px 12px; border:0; border-radius:7px; text-align:left; background:white; color:var(--ink); font:inherit; cursor:pointer }
+    .suggestion:hover,.suggestion:focus { background:#edf4fa; outline:0 }
+    .suggestion strong { display:inline-block; min-width:150px }
+    .suggestion span { color:var(--muted); font-size:.9rem }
+    .no-results { padding:12px; color:var(--muted) }
+    .group { margin-bottom:16px; overflow:hidden }
+    .group summary { padding:15px 18px; font-weight:750; cursor:pointer; user-select:none; background:#fff }
+    .group summary:hover { background:#f9fbfc }
+    .group-count { margin-left:7px; color:var(--muted); font-size:.85rem; font-weight:500 }
+    .company-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:8px; padding:0 12px 12px }
+    .company { padding:12px 14px; border:1px solid var(--line); border-radius:9px; color:inherit; text-align:left; background:white; cursor:pointer; font:inherit }
+    .company:hover,.company[aria-pressed="true"] { background:#edf4fa; border-color:#b7ccdd }
+    .company strong,.company span { display:block }
+    .company span { color:var(--muted); font-size:.82rem; margin-top:2px }
+    .workspace { display:grid; grid-template-columns:minmax(310px,390px) minmax(0,1fr); gap:18px; align-items:start }
+    .company-column { min-width:0 }
+    .company-column .group { margin-bottom:12px }
+    .company-column .company-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; padding:0 10px 10px }
+    .company-column .company { padding:10px 11px; font-size:.9rem }
+    .right-column { min-width:0 }
+    .calendar { background:var(--paper); border:1px solid var(--line); border-radius:14px; box-shadow:0 6px 22px #17212b08; overflow:hidden; margin-bottom:16px }
+    .calendar-head { padding:16px 18px; border-bottom:1px solid var(--line) }
+    .calendar-head strong { font-size:1.05rem }
+    .calendar-head p { margin:3px 0 0; color:var(--muted); font-size:.86rem }
+    .calendar-controls { display:flex; gap:8px; padding:12px 14px 0; flex-wrap:wrap }
+    .calendar-controls button { border:1px solid var(--line); border-radius:20px; background:#fff; padding:7px 12px; color:var(--ink); font:600 .84rem system-ui,sans-serif; cursor:pointer }
+    .calendar-controls button[aria-pressed="true"] { color:#fff; background:var(--blue); border-color:var(--blue) }
+    #event-list { display:grid; gap:8px; padding:12px 14px 14px; max-height:420px; overflow:auto }
+    .event-tile { display:flex; gap:10px; align-items:baseline; padding:10px 12px; border:1px solid var(--line); border-radius:8px; background:#fff; font-size:.9rem }
+    .event-tile time { flex:none; color:var(--blue); font-weight:750; white-space:nowrap }
+    .event-tile a { color:inherit; text-decoration:none }
+    .event-tile a:hover { color:var(--blue); text-decoration:underline }
+    .event-status { padding:16px; color:var(--muted); font-size:.9rem }
+    .event-meta { display:block; color:var(--muted); font-size:.78rem }
+    .preview { overflow:hidden }
+    .preview-head { min-height:66px; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 18px; border-bottom:1px solid var(--line) }
+    .preview-head strong { font-size:1.05rem }
+    .actions { display:flex; gap:8px; flex-wrap:wrap }
+    a.action,button.action { display:inline-block; border:1px solid var(--line); border-radius:7px; background:white; color:var(--ink); padding:8px 12px; text-decoration:none; font:600 .84rem system-ui,sans-serif; cursor:pointer }
+    a.action:hover,button.action:hover { border-color:#9bb4c8; color:var(--blue) }
+    .frame-wrap { position:relative; height:min(74vh,900px); min-height:540px; background:#fff; overflow:hidden }
+    iframe { display:block; width:125%; height:calc(min(74vh,900px) * 1.25); min-height:675px; border:0; background:white; transform:scale(.8); transform-origin:top left }
+    .fallback { position:absolute; inset:0; display:none; align-items:center; justify-content:center; text-align:center; padding:28px; background:#fff }
+    .fallback.show { display:flex }
+    .fallback div { max-width:420px }
+    .fallback p,.note { color:var(--muted) }
+    .note { margin:12px 2px; font-size:.82rem }
+    @media(max-width:900px) { .workspace { grid-template-columns:1fr } .company-column { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px } .company-column .group { margin:0 } }
+    @media(max-width:700px) { main { width:calc(100% - 24px); margin:24px auto } .search-panel { padding:13px } .company-grid { grid-template-columns:repeat(2,minmax(0,1fr)) } .suggestion strong { min-width:0; display:block } .preview-head { align-items:flex-start; flex-direction:column } .frame-wrap { height:68vh; min-height:420px } iframe { height:85vh; min-height:525px } }
+    @media(max-width:380px) { .company-grid { grid-template-columns:1fr } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Quick access directory</div>
+    <h1>Investor Relations</h1>
+    <p>Find a company by name or ticker, then browse its investor relations site.</p>
+  </header>
+  <section class="search-panel" aria-label="Search companies">
+    <label class="search-label" for="company-search">Search all companies</label>
+    <div class="search-box">
+      <input id="company-search" type="search" placeholder="Try Amazon or NASDAQ: AMZN" autocomplete="off" aria-autocomplete="list" aria-controls="suggestions" aria-expanded="false">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <div class="suggestions" id="suggestions" role="listbox"></div>
+    </div>
+  </section>
+  <div class="workspace">
+  <aside class="company-column" aria-label="Company groups">
+  <details class="group" open>
+    <summary>Mag 7 <span class="group-count">7 companies</span></summary>
+    <nav class="company-grid" id="company-grid" aria-label="Mag 7 companies"></nav>
+  </details>
+  <details class="group" open>
+    <summary>US retailers <span class="group-count">5 companies</span></summary>
+    <nav class="company-grid" id="retailer-grid" aria-label="US retailers"></nav>
+  </details>
+  </aside>
+  <section class="right-column" aria-label="Company events and investor relations">
+  <section class="calendar" aria-label="Company events calendar">
+    <div class="calendar-head"><strong id="event-heading">Mag 7 events</strong><p>Company announcements and scheduled events from the past three months onward.</p></div>
+    <div class="calendar-controls" role="group" aria-label="Choose companies shown in events">
+      <button type="button" data-group="mag7" aria-pressed="true">Mag 7</button>
+      <button type="button" data-group="retailers" aria-pressed="false">US retailers</button>
+    </div>
+    <div id="event-list" aria-live="polite"><div class="event-status">Loading latest events…</div></div>
+  </section>
+  <section class="preview" aria-label="Investor relations preview">
+    <div class="preview-head">
+      <strong id="selected-name">Amazon Investor Relations</strong>
+      <div class="actions">
+        <a class="action" id="open-link" href="https://ir.aboutamazon.com/" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+        <button class="action" id="reload" type="button">Reload preview</button>
+      </div>
+    </div>
+    <div class="frame-wrap">
+      <iframe id="preview" title="Amazon investor relations website" src="https://ir.aboutamazon.com/" loading="lazy" referrerpolicy="no-referrer"></iframe>
+      <div class="fallback" id="fallback"><div><strong id="fallback-title">This site doesn’t allow an embedded preview.</strong><p>Open the investor relations site in a new tab to view its latest information.</p><a class="action" id="fallback-open" href="https://ir.aboutamazon.com/" target="_blank" rel="noopener noreferrer">Open investor relations site ↗</a></div></div>
+    </div>
+  </section>
+  </section>
+  </div>
+  <p class="note">Some companies block embedded previews in browsers. Use “Open in new tab” if a preview does not appear.</p>
+</main>
+<script>
+  // Add future companies here with a display name, exchange/ticker, and IR URL.
+  const companies = [
+    { name:'Amazon', ticker:'NASDAQ: AMZN', url:'https://ir.aboutamazon.com/' },
+    { name:'Microsoft', ticker:'NASDAQ: MSFT', url:'https://www.microsoft.com/en-us/Investor/' },
+    { name:'Alphabet', ticker:'NASDAQ: GOOG', url:'https://abc.xyz/investor/' },
+    { name:'Meta Platforms', ticker:'NASDAQ: META', url:'https://investor.atmeta.com/' },
+    { name:'Apple', ticker:'NASDAQ: AAPL', url:'https://investor.apple.com/' },
+    { name:'NVIDIA', ticker:'NASDAQ: NVDA', url:'https://investor.nvidia.com/' },
+    { name:'Tesla', ticker:'NASDAQ: TSLA', url:'https://ir.tesla.com/' }
+  ];
+  const retailers = [
+    { name:'Dollar General', ticker:'NYSE: DG', url:'https://investor.dollargeneral.com/' },
+    { name:'Dollar Tree', ticker:'NASDAQ: DLTR', url:'https://corporate.dollartree.com/investors' },
+    { name:'Walmart', ticker:'NYSE: WMT', url:'https://stock.walmart.com/' },
+    { name:'Costco', ticker:'NASDAQ: COST', url:'https://investor.costco.com/' },
+    { name:'Target', ticker:'NYSE: TGT', url:'https://investors.target.com/' }
+  ];
+  const allCompanies = [...companies, ...retailers];
+  const grids = [document.getElementById('company-grid'), document.getElementById('retailer-grid')];
+  const eventList = document.getElementById('event-list');
+  const eventHeading = document.getElementById('event-heading');
+  const eventGroups = { mag7:companies.map(c=>c.name), retailers:retailers.map(c=>c.name) };
+  let activeGroup = 'mag7';
+  let eventData = [];
+  const search = document.getElementById('company-search');
+  const suggestions = document.getElementById('suggestions');
+  const frame = document.getElementById('preview');
+  const title = document.getElementById('selected-name');
+  const openLink = document.getElementById('open-link');
+  const fallbackLink = document.getElementById('fallback-open');
+  const fallbackTitle = document.getElementById('fallback-title');
+  const fallback = document.getElementById('fallback');
+  let selected = companies[0];
+
+  function renderGrid() {
+    grids.forEach((grid, index) => {
+    grid.innerHTML = '';
+    (index === 0 ? companies : retailers).forEach(company => {
+      const button = document.createElement('button');
+      button.className = 'company'; button.type = 'button';
+      button.setAttribute('aria-pressed', String(company === selected));
+      button.innerHTML = `<strong>${company.name}</strong><span>${company.ticker}</span>`;
+      button.addEventListener('click', () => selectCompany(company));
+      grid.append(button);
+    });
+    });
+  }
+  function renderEvents() {
+    const names = eventGroups[activeGroup];
+    eventHeading.textContent = `${activeGroup === 'mag7' ? 'Mag 7' : 'US retailers'} events`;
+    document.querySelectorAll('.calendar-controls button').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.group === activeGroup)));
+    const today = new Date(); today.setHours(0,0,0,0);
+    const cutoff = new Date(today); cutoff.setMonth(cutoff.getMonth()-3);
+    const visible = eventData.filter(event => names.includes(event.company) && /^\d{4}-\d{2}-\d{2}$/.test(event.date) && new Date(`${event.date}T00:00:00`) >= cutoff);
+    visible.sort((a,b)=>a.date.localeCompare(b.date));
+    eventList.replaceChildren();
+    if (!visible.length) {
+      const status=document.createElement('div'); status.className='event-status';
+      status.textContent=eventData.length ? 'No announced events in this date range yet.' : 'Event feed is not available. The updater will populate announced events.';
+      eventList.append(status); return;
+    }
+    visible.forEach(event => {
+      const tile=document.createElement('div'); tile.className='event-tile';
+      const date=document.createElement('time'); date.dateTime=event.date;
+      date.textContent=new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',year:'2-digit'}).format(new Date(`${event.date}T00:00:00`));
+      const label=document.createElement(event.url ? 'a' : 'span'); label.textContent=` - ${event.event}`;
+      if(event.url){label.href=event.url;label.target='_blank';label.rel='noopener noreferrer';}
+      tile.append(date,label); eventList.append(tile);
+    });
+  }
+  document.querySelectorAll('.calendar-controls button').forEach(button=>button.addEventListener('click',()=>{activeGroup=button.dataset.group;renderEvents();}));
+  fetch('./data/events.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('Event feed unavailable');return response.json();}).then(data=>{eventData=Array.isArray(data.events)?data.events:[];renderEvents();}).catch(()=>renderEvents());
+  function selectCompany(company) {
+    selected = company;
+    renderGrid();
+    title.textContent = `${company.name} Investor Relations`;
+    frame.title = `${company.name} investor relations website`;
+    openLink.href = fallbackLink.href = company.url;
+    fallbackTitle.textContent = `${company.name} may not allow an embedded preview.`;
+    fallback.classList.remove('show');
+    frame.src = company.url;
+    search.value = `${company.name} — ${company.ticker}`;
+    closeSuggestions();
+  }
+  function closeSuggestions() {
+    suggestions.classList.remove('open');
+    search.setAttribute('aria-expanded','false');
+  }
+  function showSuggestions() {
+    const query = search.value.trim().toLowerCase();
+    if (!query) { closeSuggestions(); return; }
+    const normalized = query.replace(/\s+/g,' ').replace(/^nasdaq:\s*/, '');
+    const matches = allCompanies.filter(company =>
+      company.name.toLowerCase().includes(query) ||
+      company.ticker.toLowerCase().includes(query) ||
+      company.ticker.toLowerCase().replace(/^nasdaq:\s*/, '').includes(normalized)
+    );
+    suggestions.replaceChildren();
+    if (!matches.length) {
+      const empty = document.createElement('div'); empty.className='no-results'; empty.textContent='No matching companies'; suggestions.append(empty);
+    } else matches.forEach(company => {
+      const option = document.createElement('button'); option.type='button'; option.className='suggestion'; option.setAttribute('role','option');
+      const name = document.createElement('strong'); name.textContent=company.name;
+      const ticker = document.createElement('span'); ticker.textContent=company.ticker;
+      option.append(name,ticker); option.addEventListener('click', () => selectCompany(company)); suggestions.append(option);
+    });
+    suggestions.classList.add('open'); search.setAttribute('aria-expanded','true');
+  }
+  search.addEventListener('input', showSuggestions);
+  search.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeSuggestions();
+    if (event.key === 'Enter') { const first=suggestions.querySelector('.suggestion'); if(first) { event.preventDefault(); first.click(); } }
+    if (event.key === 'ArrowDown') suggestions.querySelector('.suggestion')?.focus();
+  });
+  document.addEventListener('click', event => { if (!event.target.closest('.search-box')) closeSuggestions(); });
+  frame.addEventListener('error', () => fallback.classList.add('show'));
+  document.getElementById('reload').addEventListener('click', () => { fallback.classList.remove('show'); frame.src=frame.src; });
+  renderGrid();
+</script>
+</body>
+</html>
