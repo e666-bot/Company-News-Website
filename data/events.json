@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-06T14:14:29.712Z",
+  "updatedAt": "2026-11-07T12:57:15.189Z",
   "events": [
     {
       "company": "Target",
@@ -36,6 +36,12 @@
       "date": "2026-10-28",
       "event": "Read Press Release",
       "url": "https://investor.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873"
+    },
+    {
+      "company": "NVIDIA",
+      "date": "2026-10-28",
+      "event": "All News",
+      "url": "https://investor.nvidia.com/news"
     }
   ]
 }
