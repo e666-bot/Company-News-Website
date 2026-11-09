@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-08T13:21:20.219Z",
+  "updatedAt": "2026-11-09T16:13:52.414Z",
   "events": [
     {
       "company": "Target",
@@ -24,24 +24,6 @@
       "date": "2026-09-30",
       "event": "http://www.microsoft.com/en-us/investor",
       "url": "http://www.microsoft.com/en-us/investor"
-    },
-    {
-      "company": "NVIDIA",
-      "date": "2026-10-28",
-      "event": "NVIDIA Sets Conference Call for Third-Quarter Financial Results",
-      "url": "https://investor.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873"
-    },
-    {
-      "company": "NVIDIA",
-      "date": "2026-10-28",
-      "event": "Read Press Release",
-      "url": "https://investor.nvidia.com/news/nvidia-sets-conference-call-for-third-quarter-financial-results-6928873"
-    },
-    {
-      "company": "NVIDIA",
-      "date": "2026-10-28",
-      "event": "All News",
-      "url": "https://investor.nvidia.com/news"
     }
   ]
 }
