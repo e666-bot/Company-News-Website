@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-16T15:41:44.244Z",
+  "updatedAt": "2026-11-17T15:57:30.233Z",
   "events": [
     {
       "company": "Target",
@@ -24,6 +24,18 @@
       "date": "2026-09-30",
       "event": "http://www.microsoft.com/en-us/investor",
       "url": "http://www.microsoft.com/en-us/investor"
+    },
+    {
+      "company": "Target",
+      "date": "2026-11-18",
+      "event": "Target Corporation to Webcast 3rd Quarter Earnings Conference Call on Wednesday, November 18, 2026",
+      "url": "https://investors.target.com/press/release/2026/11/target-corporation-to-webcast-3rd-quarter-earnings-conference-call-on-wednesday,-november-18,-2026"
+    },
+    {
+      "company": "Target",
+      "date": "2026-11-18",
+      "event": "Target Appoints Sally Grimes to Board of Directors",
+      "url": "https://investors.target.com/press/release/2026/11/target-appoints-sally-grimes-to-board-of-directors"
     }
   ]
 }
