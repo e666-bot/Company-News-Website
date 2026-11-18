@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-17T15:57:30.233Z",
+  "updatedAt": "2026-11-18T15:37:39.260Z",
   "events": [
     {
       "company": "Target",
@@ -14,16 +14,28 @@
       "url": "https://investors.target.com/press/release/2026/08/target-corporation-to-webcast-2nd-quarter-earnings-conference-call-on-wednesday,-august-19,-2026"
     },
     {
-      "company": "Target",
-      "date": "2026-08-19",
-      "event": "Target Announces Voting Results from 2026 Annual Meeting of Shareholders",
-      "url": "https://investors.target.com/press/release/2026/06/target-announces-voting-results-from-2026-annual-meeting-of-shareholders"
-    },
-    {
       "company": "Microsoft",
       "date": "2026-09-30",
       "event": "http://www.microsoft.com/en-us/investor",
       "url": "http://www.microsoft.com/en-us/investor"
+    },
+    {
+      "company": "NVIDIA",
+      "date": "2026-11-17",
+      "event": "NVIDIA Announces Financial Results for Third Quarter Fiscal 2027",
+      "url": "https://investor.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027"
+    },
+    {
+      "company": "NVIDIA",
+      "date": "2026-11-17",
+      "event": "Read Press Release",
+      "url": "https://investor.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027"
+    },
+    {
+      "company": "Target",
+      "date": "2026-11-18",
+      "event": "Target Corporation Reports Third Quarter Earnings",
+      "url": "https://investors.target.com/press/release/2026/11/target-corporation-reports-third-quarter-earnings"
     },
     {
       "company": "Target",
